@@ -26,7 +26,7 @@ app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', rView);
-app.use('/api', rUserAuth);
+app.use('/api/sessions', rUserAuth);
 
 mongo.connect().then(()=>{
   app.listen( PORT,()=>{
