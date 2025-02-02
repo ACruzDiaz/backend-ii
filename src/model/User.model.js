@@ -10,9 +10,10 @@ const userSchema = new Schema({
     email: { type: String, required: true, unique: true },
     age: {type: Number, require:true},
     password: { type: String, required: true }, 
-    cartId: {type: mongoose.Schema.Types.ObjectId, ref: 'cart'}, // Referencia a CART
-    role: { type: String, default: 'user' }, // Rol del usuario (por defecto, 'user')
+    cartId: {type: mongoose.Schema.Types.ObjectId, ref: 'Cart', required: true}, // Referencia a CART
+    role: { type: String, default: 'USER' }, // Rol del usuario (por defecto, 'user')
 });
+
 
 //Middleware para hashear la contraseña antes de guardar el usuario
 userSchema.pre('save', async function (next){
@@ -22,5 +23,6 @@ userSchema.pre('save', async function (next){
 })
 
 const userModel = mongoose.model('User', userSchema);
+
 
 export default userModel;

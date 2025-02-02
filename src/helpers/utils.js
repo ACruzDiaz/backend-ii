@@ -16,6 +16,7 @@ const EXPIRES_TIME_TOKEN = process.env.EXPIRES_TIME_TOKEN || '24h';
 //   * Genera el hash del password usando el salt
 //   * Devuelve el hash del password 
 export const createHash = (password) => bcrypt.hashSync(password, bcrypt.genSaltSync(10));
+export const generateCode = (data) => bcrypt.hashSync(data, bcrypt.genSaltSync(1));
 
 // Crea una constante llamada isValidPassword
 // La constante es una función que recibe un objeto user y un password como argumentos
@@ -42,7 +43,7 @@ export const passportCall = (strategy) => {
     passport.authenticate(strategy, function(err, user, info) {
       if (err) return next(err);
       if (!user) {
-        return res.status(401).send({ error: info.messages ? info.messages : info.toString() });
+        return res.status(401).json({ status: 'error', message: info.messages ? info.messages : info.toString() });
       }
       req.user = user.user;
 
